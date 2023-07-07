@@ -1,0 +1,34 @@
+[
+  {
+    "value": "club",
+    "icon": "suit-club"
+  },
+  {
+    "value": "diamond",
+    "icon": "suit-diamond"
+  },
+  {
+    "value": "heart",
+    "icon": "suit-heart"
+  },
+  {
+    "value": "spadeb",
+    "icon": "suit-spade"
+  },
+  {
+    "value": "bell",
+    "icon": "bell"
+  },
+  {
+    "value": "basket",
+    "icon": "basket3"
+  },
+  {
+    "value": "binoculars",
+    "icon": "binoculars"
+  },
+  {
+    "value": "bicycle",
+    "icon": "bicycle"
+  }
+]
