@@ -1,28 +1,17 @@
 <template>
-  <div >
-    <app-card-component :cards="cards"
-                        class="">
-
-    </app-card-component>
+  <div>
+    <app-game-cards-component></app-game-cards-component>
   </div>
 </template>
 
 <script lang="ts">
 
 import Vue from "vue";
-import AppCardComponent from "@/components/AppCardComponent.vue";
-import { useCardsStore } from "@/stores/cards";
+import AppGameCardsComponent from "@/components/AppGameCardsComponent.vue";
 
-export default {
-  components: { AppCardComponent },
-  data: function () {
-    const useCards = useCardsStore();
-    const cards = useCards.cards;
-
-
-    return {cards};
-  }
-}
+export default Vue.extend({
+  components: { AppGameCardsComponent }
+})
 </script>
 
 <style scoped>

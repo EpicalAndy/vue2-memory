@@ -1,8 +1,7 @@
 <template>
   <div>
-    <b-card v-for="item in cards"
-            class="d-inline-flex m-2">
-      <b-icon :icon="item.icon"></b-icon>
+    <b-card class="d-inline-flex m-2">
+      <b-icon :icon="card.icon"></b-icon>
     </b-card>
   </div>
 
@@ -18,7 +17,7 @@ export default {
 
     return data;
   },
-  props: { cards: { type: Array as PropType<Array<AppCard>> } }
+  props: { card: { type: {} as PropType<AppCard> } }
 }
 </script>
 
