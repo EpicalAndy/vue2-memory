@@ -1,8 +1,17 @@
 <template>
   <div>
-    <b-card class="d-inline-flex m-2">
-      <b-icon :icon="card.icon"></b-icon>
-    </b-card>
+    <b-btn @click="toggleCard"
+    :class="isOpened ? 'btn-info' : 'btn-secondary'">
+
+      <b-icon v-if="isOpened"
+              :icon="card.icon">
+      </b-icon>
+
+      <b-icon v-else
+              icon="question">
+      </b-icon>
+
+    </b-btn>
   </div>
 
 </template>
@@ -13,11 +22,18 @@ import type { PropType } from "vue";
 
 export default {
   data: function () {
-    const data = {};
-
-    return data;
+    return {
+      isOpened: false,
+    };
   },
-  props: { card: { type: {} as PropType<AppCard> } }
+  props: { card: { type: {} as PropType<AppCard> } },
+  methods: {
+    toggleCard() {
+      this.isOpened = !this.isOpened;
+    }
+  },
+  computed: {}
+
 }
 </script>
 

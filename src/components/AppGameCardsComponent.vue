@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="d-flex justify-content-between flex-wrap py-2">
     <app-card-component v-for="item in gameCards"
                         :card="item"
                         :key="item.id"
-                        class="">
+                        class="m-1">
     </app-card-component>
   </div>
 </template>
