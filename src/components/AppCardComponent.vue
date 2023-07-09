@@ -3,7 +3,7 @@
     <b-btn @click="openCard"
            :class="cardClass">
 
-      <b-icon v-if="isOpened"
+      <b-icon v-if="isOpened || isSuccess"
               :icon="card.icon">
       </b-icon>
 
