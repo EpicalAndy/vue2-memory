@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-btn @click="toggleCard"
-    :class="isOpened ? 'btn-info' : 'btn-secondary'">
+    <b-btn @click="openCard"
+           :class="cardClass">
 
       <b-icon v-if="isOpened"
               :icon="card.icon">
@@ -17,22 +17,36 @@
 </template>
 
 <script lang="ts">
-import type { AppCard } from "@/models/app-card";
-import type { PropType } from "vue";
+import { useCardsStore } from "@/stores/cards-store";
+import type { AppGameCard } from "@/models/app-card";
 
 export default {
   data: function () {
     return {
-      isOpened: false,
+      cardsStore: useCardsStore(),
+      card: useCardsStore().getGameCard(this.cardId)
     };
   },
-  props: { card: { type: {} as PropType<AppCard> } },
+  props: { cardId: { type: Number } },
   methods: {
-    toggleCard() {
-      this.isOpened = !this.isOpened;
+    openCard() {
+      !this.card.isSuccess && this.cardsStore.clickCard(this.card.id);
     }
   },
-  computed: {}
+  computed: {
+    isOpened(): boolean {
+      return this.card.isOpened;
+    },
+    isSuccess(): boolean {
+      return this.card.isSuccess;
+    },
+    cardClass() {
+      const isOpened: string = this.isOpened ? 'btn-info' : 'btn-secondary';
+      const isSuccess: string = this.isSuccess ? 'btn-success' : '';
+
+      return isSuccess || isOpened;
+    }
+  }
 
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-between flex-wrap py-2">
     <app-card-component v-for="item in gameCards"
-                        :card="item"
+                        :card-id="item.id"
                         :key="item.id"
                         class="m-1">
     </app-card-component>
