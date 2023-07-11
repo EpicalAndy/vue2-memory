@@ -10,7 +10,7 @@ export const useCardsStore = defineStore('cards', {
     gameCards: [] as AppGameCard[],
     srcCards: appCards as AppCard[],
     pairCardIds: [] as Array<number>,
-    cardsCount: 16, // должно быть чётным положительным.
+    cardsCount: 20, // должно быть чётным положительным.
     comareTimeout: 2000, // Задержка показа 2-х карточек
     compareInProgress: false, // блокировщик обработки кликов елси идёт проверка на соответствие карточек
   }),
@@ -57,11 +57,15 @@ export const useCardsStore = defineStore('cards', {
     },
 
     clickCard(id: number) {
+      if (this.compareInProgress) {
+        return;
+      }
+
       this.addCardToPair(id);
 
       this.getGameCard(id).isOpened = true;
 
-      if (this.pairCardIds.length === 2 && this.compareInProgress === false) {
+      if (this.pairCardIds.length === 2) {
         this.compareInProgress = true;
 
         setTimeout( () => {
