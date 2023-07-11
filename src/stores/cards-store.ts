@@ -11,6 +11,8 @@ export const useCardsStore = defineStore('cards', {
     srcCards: appCards as AppCard[],
     pairCardIds: [] as Array<number>,
     cardsCount: 16, // должно быть чётным положительным.
+    comareTimeout: 2000, // Задержка показа 2-х карточек
+    compareInProgress: false, // блокировщик обработки кликов елси идёт проверка на соответствие карточек
   }),
   getters: {
     firstPairCard: (state): AppGameCard => {
@@ -59,10 +61,16 @@ export const useCardsStore = defineStore('cards', {
 
       this.getGameCard(id).isOpened = true;
 
-      if (this.pairCardIds.length === 2) {
-        this.comparepairCardIds() && this.acceptCards();
+      if (this.pairCardIds.length === 2 && this.compareInProgress === false) {
+        this.compareInProgress = true;
+
+        setTimeout( () => {
+          this.comparepairCardIds() && this.acceptCards();
 
         this.clearpairCardIds();
+
+        this.compareInProgress = false;
+        }, this.comareTimeout);
       }
     },
 
@@ -92,7 +100,7 @@ export const useCardsStore = defineStore('cards', {
       return this.gameCards.find(item => item.id === id) as AppGameCard;
     }
   }
-})
+});
 
 function getRandomArrItem(arr: AppCard[]): AppCard {
   const max = arr.length - 1
