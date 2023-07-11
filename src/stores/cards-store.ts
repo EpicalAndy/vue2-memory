@@ -10,7 +10,7 @@ export const useCardsStore = defineStore('cards', {
     gameCards: [] as AppGameCard[],
     srcCards: appCards as AppCard[],
     pairCardIds: [] as Array<number>,
-    cardsCount: 16,
+    cardsCount: 16, // должно быть чётным положительным.
   }),
   getters: {
     firstPairCard: (state): AppGameCard => {
@@ -29,20 +29,28 @@ export const useCardsStore = defineStore('cards', {
   actions: {
     prepareGameCards() {
       const srcCards = this.srcCards;
-      const gameCards = [] as AppGameCard[];
+      const count = this.cardsCount / 2;
 
-      let count = this.cardsCount;
+      let gameCards = [] as AppGameCard[];
+      let temp = [] as AppCard[];
       let i = 0;
 
       while (count > i) {
-        const card = new GameCard({id: i + 1});
-
-        let item = Object.assign(card, getRandomArrItem(srcCards));
+        let item = getRandomArrItem(srcCards);
 
         i++;
 
-        gameCards.push(item);
+        temp.push(item);
       }
+
+      temp = temp.concat(temp);
+
+      gameCards = temp.map((item, index) => {
+        const card = Object.assign({ id: index }, item);
+
+        return new GameCard(card);
+      });
+
 
       this.gameCards = gameCards;
     },
