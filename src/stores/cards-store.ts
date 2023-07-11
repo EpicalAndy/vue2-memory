@@ -51,7 +51,6 @@ export const useCardsStore = defineStore('cards', {
         return new GameCard(card);
       });
 
-
       this.gameCards = gameCards;
     },
 
@@ -83,7 +82,6 @@ export const useCardsStore = defineStore('cards', {
       this.secondPairCard.isOpened = false;
 
       this.pairCardIds.splice(0, 2);
-      console.log('clear');
     },
 
     acceptCards() {
