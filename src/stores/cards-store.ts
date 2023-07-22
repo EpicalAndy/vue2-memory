@@ -13,6 +13,7 @@ export const useCardsStore = defineStore('cards', {
     cardsCount: 20, // должно быть чётным положительным.
     comareTimeout: 2000, // Задержка показа 2-х карточек
     compareInProgress: false, // блокировщик обработки кликов елси идёт проверка на соответствие карточек
+    attempts: 0, // Количство попыток открытия (пар)
   }),
   getters: {
     firstPairCard: (state): AppGameCard => {
@@ -26,6 +27,9 @@ export const useCardsStore = defineStore('cards', {
 
       // @ts-ignore
       return pair[1] ? state.gameCards.find(item => item.id === pair[1]) : null;
+    },
+    successOpenedCards: (state) => {
+      return state.gameCards.filter(item => item.isSuccess).length;
     }
   },
   actions: {
@@ -68,12 +72,14 @@ export const useCardsStore = defineStore('cards', {
       if (this.pairCardIds.length === 2) {
         this.compareInProgress = true;
 
-        setTimeout( () => {
+        this.addAttempt();
+
+        setTimeout(() => {
           this.comparepairCardIds() && this.acceptCards();
 
-        this.clearpairCardIds();
+          this.clearpairCardIds();
 
-        this.compareInProgress = false;
+          this.compareInProgress = false;
         }, this.comareTimeout);
       }
     },
@@ -102,7 +108,11 @@ export const useCardsStore = defineStore('cards', {
 
     getGameCard(id: number): AppGameCard {
       return this.gameCards.find(item => item.id === id) as AppGameCard;
-    }
+    },
+
+    addAttempt() {
+      this.attempts += 1;
+    },
   }
 });
 

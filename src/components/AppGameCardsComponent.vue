@@ -5,6 +5,8 @@
                         :key="item.id"
                         class="m-1">
     </app-card-component>
+
+    <app-game-over :show="isAllOpened"></app-game-over>
   </div>
 </template>
 
@@ -12,9 +14,12 @@
 import AppCardComponent from "@/components/AppCardComponent.vue";
 import { useCardsStore } from "@/stores/cards-store";
 import type { AppGameCard } from "@/models/app-card";
+import AppGameOver from "@/components/AppGameOver.vue";
+
+const cardsStore = useCardsStore();
 
 export default {
-  components: { AppCardComponent },
+  components: { AppGameOver, AppCardComponent },
   data: function () {
     const useCards = useCardsStore();
 
@@ -23,6 +28,11 @@ export default {
     const gameCards: AppGameCard[] = useCards.gameCards;
 
     return { gameCards };
+  },
+  computed: {
+    isAllOpened: function () {
+      return cardsStore.successOpenedCards === cardsStore.cardsCount;
+    }
   }
 }
 </script>
